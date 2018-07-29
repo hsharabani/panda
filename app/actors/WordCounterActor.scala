@@ -3,6 +3,9 @@ package actors
 import akka.actor._
 import messages._
 
+/**
+  * Actor that counts words.
+  */
 object WordCounterActor {
   def props: Props = Props[WordCounterActor]
 
@@ -10,18 +13,13 @@ object WordCounterActor {
 
 class WordCounterActor extends Actor {
 
-  override def preStart(): Unit = {
-    println("WordCounterActor started")
-  }
-
   def receive(wordCount: Map[String, Long]): Receive = {
     case Event(_, data, _) =>
       val updatedCounts: Map[String, Long] = data.split(" ").foldLeft(wordCount)((map, word) => map.updated(word, wordCount.getOrElse(word, 0L) + 1L))
       context become receive(updatedCounts)
 
-    case Stats() =>
-      println(s"WordCounterActor.Stats: ${"Words: " + wordCount.toString()}")
-      sender() ! ("Words: " + wordCount.map { case (k, v) => s"$k => $v" }.mkString(","))
+    case StatsRequest() =>
+      sender() ! StatsResult("Words: " + wordCount.map { case (k, v) => s""""$k" --> $v""" }.mkString(", "))
   }
 
   override def receive: Receive = receive(Map.empty)

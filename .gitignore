@@ -7,4 +7,5 @@ target
 /.gradle
 /.project
 /.settings
+/generator*
 /RUNNING_PID

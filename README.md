@@ -1,35 +1,37 @@
-# play-scala-starter-example
+# Infinite Stream reader into
 
-[<img src="https://img.shields.io/travis/playframework/play-scala-starter-example.svg"/>](https://travis-ci.org/playframework/play-scala-starter-example)
+This application uses Akka and Play frameworks.
 
-This is a starter application that shows how Play works.  Please see the documentation at <https://www.playframework.com/documentation/latest/Home> for more details.
-
-## Running
 
 Run this using [sbt](http://www.scala-sbt.org/).  If you downloaded this project from <http://www.playframework.com/download> then you'll find a prepackaged version of sbt in the project directory:
 
-```bash
-sbt run
+1. copy the generator binary into the source code root.
+
+2. ```bash
+sbt runProd
 ```
 
-And then go to <http://localhost:9000> to see the running web application.
+And then go to <http://localhost:9000/stats> to get the tracked statistics.
+
 
 There are several demonstration files available in this template.
 
+## Services
+
+- ProcessExecutor.scala
+
+  Executor for the external process.
+
+- EventMainService.scala
+
+  Service to acess the EventActor.
+
+
 ## Controllers
 
-- HomeController.scala:
+- EventController.scala:
 
-  Shows how to handle simple HTTP requests.
-
-- AsyncController.scala:
-
-  Shows how to do asynchronous programming when handling a request.
-
-- CountController.scala:
-
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
+  handles  HTTP stats requests.
 
 ## Components
 
@@ -37,21 +39,26 @@ There are several demonstration files available in this template.
 
   Shows how to use Guice to bind all the components needed by your application.
 
-- Counter.scala:
+## Akka Actors
+- EventActor.scala:
 
-  An example of a component that contains state, in this case a simple counter.
+  The main actor in the application.
 
-- ApplicationTimer.scala:
+-  ParseLineActor.scala
 
-  An example of a component that starts when the application starts and stops
-  when the application stops.
+  Parses lines into Events and send it to the main EventActor actor.
 
-## Filters
+-  EventTypeCounterActor.scala
 
-- Filters.scala:
+  Keeps track and exposes the count per event type.
 
-  Creates the list of HTTP filters used by your application.
+-  WordCounterActor.scala
 
-- ExampleFilter.scala
+  Keeps track  and exposes the count per word.
 
-  A simple filter that adds a header to every response.
+
+## Improvement Ideas:
+
+1. Get the executable binary name from configuration like scala.config.
+2. Remove Await.result() from EventActor to wait for each counter results.
+3. Persist the statics into a database for the case that it will crash.

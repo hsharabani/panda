@@ -2,7 +2,8 @@ package messages
 
 case class Event(eventType: String, data: String, timestamp: Long)
 
-case class Stats()
+case class StatsRequest()
 
-case class SayHello(name: String)
+case class StatsResult(result: String)
 
+case class ParseLine(line: String)
