@@ -44,15 +44,15 @@ There are several demonstration files available in this template.
 
 -  ParseLineActor.scala
 
-  Parses lines into Events and send it to the main EventActor actor.
+   Parses lines into Events and send it to the main EventActor actor.
 
 -  EventTypeCounterActor.scala
 
-  Keeps track and exposes the count per event type.
+   Keeps track and exposes the count per event type.
 
 -  WordCounterActor.scala
 
-  Keeps track  and exposes the count per word.
+   Keeps track  and exposes the count per word.
 
 
 ## Improvement Ideas:
