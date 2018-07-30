@@ -18,7 +18,7 @@ class EventActor extends Actor {
   implicit val timeout: Timeout = 5.seconds
 
   private val parserActor = context.actorOf(Props[ParseLineActor], "parser")
-  val counterActors: List[ActorRef] = List(
+  private val counterActors: List[ActorRef] = List(
     context.actorOf(Props[EventTypeCounterActor], "event-type-counter"),
     context.actorOf(Props[WordCounterActor], "event-word-counter"))
 
@@ -30,8 +30,9 @@ class EventActor extends Actor {
       counterActors.foreach(_ ! e)
 
     case s@StatsRequest() =>
+      val mySender = sender()
       val eventualStrings: Future[List[String]] = Future.sequence(counterActors.map(actor => (actor ? s).mapTo[StatsResult].map(_.result)))
-      val str: String = Await.result(eventualStrings, 5 second).mkString("\n")
-      sender() ! StatsResult(str)
+      eventualStrings.map(_.mkString("\n"))
+        .map(str => mySender ! StatsResult(str))
   }
 }
