@@ -1,4 +1,4 @@
-# Infinite Stream reader into
+# Infinite Stream reader into statics
 
 This application uses Akka and Play frameworks.
 
