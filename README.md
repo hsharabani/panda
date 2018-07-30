@@ -7,9 +7,7 @@ Run this using [sbt](http://www.scala-sbt.org/).  If you downloaded this project
 
 1. copy the generator binary into the source code root.
 
-2. ```bash
-sbt runProd
-```
+2. sbt runProd
 
 And then go to <http://localhost:9000/stats> to get the tracked statistics.
 
