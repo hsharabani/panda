@@ -57,6 +57,6 @@ There are several demonstration files available in this template.
 
 ## Improvement Ideas:
 
-1. Get the executable binary name from configuration like scala.config.
-2. Remove Await.result() from EventActor to wait for each counter results.
-3. Persist the statics into a database for the case that it will crash.
+1. Get the executable binary location from configuration like scala.config.
+2. Better lifecycle handling for actors.
+3. Persist the statistics into a database for the case that it will crash.
